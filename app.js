@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 const notes = require('./db/db.json');
 
 // Sends index.html when url is entered
@@ -29,13 +29,15 @@ app.get('/api/notes', (req, res) => {
 });
 
 // Routes POST request
-app.post('api/', (req, res) => {
+app.post('/api/notes', (req, res) => {
     console.log(req.body);
+    notes.push(req.body);
+    res.json(notes);
 })
 
 
 
 // Start listening
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}.`);
-})
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}.`);
+});
